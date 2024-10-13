@@ -1,5 +1,9 @@
 // INSTRUCTIONS
-// all the elements for the quiz must be created with JavaScript.
+// For this assignment, you'll be creating a multiple choice quiz game using JavaScript, similar to the game from Module 2. 
+// However, this time you will be using JavaScript to manipulate the HTML instead of using alert, confirm, and prompt. 
+// Also, the user will only have 30 seconds to answer each question.
+
+// Note that for this assignment all you are given for markup is <div id="quiz"></div>. That means that all the elements for the quiz must be created with JavaScript.
 
 // In the index.js file, you must also create a variable named questionsArr similar to the previous quiz assignment. This variable will contain all of the quiz data that the app will use.
     // Like the previous quiz game, this variable must follow a specific format. 
@@ -14,7 +18,7 @@
 
 
 
-    
+
 var questionsArr = [
     {
       question: '1. Who created JavaScript?',
