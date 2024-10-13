@@ -1,7 +1,7 @@
 // INSTRUCTIONS
 // For this assignment, you'll be creating a multiple choice quiz game using JavaScript, similar to the game from Module 2. 
 // However, this time you will be using JavaScript to manipulate the HTML instead of using alert, confirm, and prompt. 
-// Also, the user will only have 30 seconds to answer each question.
+// the user will only have 30 seconds to answer each question.
 
 // Note that for this assignment all you are given for markup is <div id="quiz"></div>. That means that all the elements for the quiz must be created with JavaScript.
 
@@ -13,11 +13,6 @@
     // Your questionsArr variable should contain at least FIVE question objects. Additionally, each set of possible choices in options should have at least two choices.
 
     // Create the content of the questions and answers around whatever theme or topic you wish.
-
-    
-
-
-
 
 var questionsArr = [
     {
@@ -84,14 +79,25 @@ var questionsArr = [
 
 
 // ON PAGE LOAD
-// if the user has never played the game before, the game should display a "start quiz" button. 
-// The button MUST have an id attribute of "start-quiz". automated tests require this id and will fail without it.
+window.onload = function() {
+    // if the user has never played the game before, the game should display a "start quiz" button. 
+    var startButton = document.createElement("button");
+    // The button MUST have an id attribute of "start-quiz". automated tests require this id and will fail without it.
+    startButton.id = "start-quiz";
+    startButton.innerText = "Start Quiz!";
+    document.getElementById("quiz").appendChild(startButton);
+    
+    // ! If the user has taken the quiz before, the app should display the previous score
 
-// If the user has taken the quiz before, the app should display the previous score
-
+    startButton.onclick = startQuiz 
+}
 
 
 // AFTER STARTING THE QUIZ
+
+function startQuiz () {
+
+}
 // your program should select the first question in questionsArr and display the question as well as the possible choices (figure 3). 
 // The quiz should also display a timer that counts down from 30 one second at a time (figure 3.1). Please use JavaScript's setInterval and clearInterval methods to create the timer.
 
