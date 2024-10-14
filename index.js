@@ -78,22 +78,43 @@ var totalQuestions = questionsArr.length; // total number questions to calc scor
 window.onload = function() {
   // check for previous score
     // check localStorage
+    var PREVIOUS_SCORE = localStorage.getItem('previous-score');
     // define quiz area for display
+    const quizDiv = document.getElementById('quiz');
 
     // IF previous score found
+    if (PREVIOUS_SCORE) {
+      // create previous score display
+      var previousScoreDisplay = document.createElement('p');
+      previousScoreDisplay.textContent = previousScore;
       // display previous score in quiz div
-      // display start button in quiz div
-    // ELSE (no prev score found)
-      // display start button in quiz div
+      quizDiv.textContent = previousScoreDisplay;
 
-    // event listener for start quiz button click
-      // clicking the start button runs the startQuiz function  
+      // create start button
+      var startButton = document.createElement("button");
+      startButton.id = "start-quiz";
+      startButton.innerText = "Start Quiz!";
+      // display start button in quiz div
+      quizDiv.appendChild(startButton);
+      
+    } else {
+      // create start button
+      var startButton = document.createElement("button");
+      startButton.id = "start-quiz";
+      startButton.innerText = "Start Quiz!";
+      // display start button in quiz div
+      quizDiv.appendChild(startButton);
 
+      // event listener for start quiz button click
+      document.getElementById('start-quiz').addEventListener('click', startQuiz);
+        // clicking the start button runs the startQuiz function  
+    }
 }
 
 
 // START QUIZ
 function startQuiz() {
+  console.log("Start quiz!");
   // start at first question (index 0)
   // start score at 0
   // clear quiz div display or previous score and start button
@@ -107,20 +128,31 @@ function displayQuestion() {
     // retrieve all info for the current question
     // use the quizDiv as the display area for the question data
     // display the question
+    // display the options (in an options div?)
+    // display the timer
 
     // CREATE BUTTON FOR EACH OPTION
       // use content from question options
       // create button elements
       // display question options in button's innerText
       // append buttons to quizDiv display area
+      // add event listener for option buttons
 
-    // START TIMER
-      // use setInterval to countdown from 30 sec for each question
-      // countdown one second at a time
-      // stop the countdown when it reaches 0
-      // display countdown at bottom of the quizDiv
-      
-  // ELSE endQuiz
+    // call startTimer function
+
+  // ELSE 
+    // call endQuiz function
+}
+
+// START TIMER
+function startTimer() {
+  // use setInterval to countdown from 30 sec for each question
+  // countdown one second at a time
+  // stop the countdown when it reaches 0
+  // when timer reaches 0
+    // no messaging or feedback displayed to the user
+    // cycle to next question by +1 to question index
+  // display countdown at bottom of the quizDiv
 }
 
 
@@ -142,55 +174,43 @@ function checkAnswer() {
 }
 
 // END QUIZ
-
-/*
-// ON PAGE LOAD
-window.onload = function() {
-    const quizContainer = document.getElementById("quiz");
-    // make element to display previous score
-    var previousScoreDisplay = document.createElement('p');
-    // retrieve previous score from localStorage
-    var PREVIOUS_SCORE = 'previousScore';
-    var previousScore = localStorage.getItem('PREVIOUS_SCORE');
-
-    // IF = PREV SCORE IS STORED
-    if (previousScore) {
-      // 1. display previous score
-      // set previousScoreDisplay to previous score
-      previousScoreDisplay.textContent = previousScore
-      // append prevousScoreDisplay to quiz container
-      quizContainer.textContent = previousScoreDisplay;
-
-    // 2. create a "start quiz" button w/ id attribute of "start-quiz"
-    var startButton = document.createElement("button");
-    startButton.id = "start-quiz";
-    startButton.innerText = "Start Quiz!";
-    // 3. display button
-    quizContainer.appendChild(startButton);
-    
-
-    } else {
-    // ELSE = 1ST TIME PLAYING
-    // 1. create a "start quiz" button w/ id attribute of "start-quiz"
-    var startButton = document.createElement("button");
-    startButton.id = "start-quiz";
-    startButton.innerText = "Start Quiz!";
-    // 2. display button
-    quizContainer.appendChild(startButton);
-
-    }
-
-
-
-    // click button to start the quiz
-    startButton.onclick = startQuiz;
+function endQuiz() {
+  // calculate final score 
+    // divide correct answers by total questions
+    // round to the nearest whole numebr
+  // save final score under the key previous-score to localStorage
+  // restart the game (by reloading the page ?)
 }
 
+
+// LAST QUESTION
+// After the last question is answered or time runs out the game should display the "start quiz" button along with a score that is calculated from the amount of correctly answered questions divided by the total number of questions (figure 2). 
+// This number should be rounded to the nearest whole number.
+
+
+// PERSIST SCORE DATA BETWEEN GAMES
+// the application should use the JavaScript localStorage API to store the user's most recent score under the key "previous-score" after each game and retrieve the score on page load. 
+// This means that if the user navigates away from the page and then later returns to the site, their previous score information should still be displayed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // AFTER STARTING THE QUIZ
 function startQuiz() {
     console.log("start quiz");
     // make constant to target the quiz container div in provided HTML
-    const quizContainer = document.getElementById("quiz");
+    const  quizDiv = document.getElementById("quiz");
 
     // start at question 1 (index 0) with a score of 0
 
@@ -204,13 +224,13 @@ function startQuiz() {
             var currentQuestion = document.createElement("p");
             // display the question
             currentQuestion.innerText = questionObject.question;
-            quizContainer.appendChild(currentQuestion);
+            quizDiv.appendChild(currentQuestion);
 
             // display the questionObject.options as buttons
             questionObject.options.forEach(option => {
                 var optionButton = document.createElement("button");
                 optionButton.innerText = option;
-                quizContainer.appendChild(optionButton);
+                quizDiv.appendChild(optionButton);
             });
 
             // display a timer that counts down from 30 one second at a time
@@ -218,7 +238,7 @@ function startQuiz() {
             // create an element to display the timer
             var timerDisplay = document.createElement("p")
             timerDisplay.textContent = "30"; // start at 30
-            quizContainer.appendChild(timerDisplay); // append to quiz container
+            quizDiv.appendChild(timerDisplay); // append to quiz container
             
             var timeRemaining = 30; // create variable for timeRemaining
             var intervalId = setInterval(function() {  // use interval for timer
@@ -236,15 +256,3 @@ function startQuiz() {
 
 */
 
-// Selecting one of the options or running out of time should cause the app to immediately cycle to the next question and set of choices in questionsArr. 
-// There should be no messaging or feedback displayed to the user after making a selection or running out of time(figure 4).
-
-
-// LAST QUESTION
-// After the last question is answered or time runs out the game should display the "start quiz" button along with a score that is calculated from the amount of correctly answered questions divided by the total number of questions (figure 2). 
-// This number should be rounded to the nearest whole number.
-
-
-// PERSIST SCORE DATA BETWEEN GAMES
-// the application should use the JavaScript localStorage API to store the user's most recent score under the key "previous-score" after each game and retrieve the score on page load. 
-// This means that if the user navigates away from the page and then later returns to the site, their previous score information should still be displayed.
