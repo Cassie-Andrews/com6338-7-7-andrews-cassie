@@ -140,11 +140,13 @@ function displayQuestion() {
     // display the options (in an options div?)
     var optionsDiv = document.createElement("div");
     optionsDiv.id = "options-div";
+    quizDiv.appendChild(optionsDiv);
 
     // display the timer
     var timerEl = document.createElement("p");
     timerEl.id = "timer-display";
     timerEl.textContent = 30;
+    quizDiv.appendChild(timerEl);
 
     // CREATE BUTTON FOR EACH OPTION
     // use content from question options
@@ -152,14 +154,12 @@ function displayQuestion() {
       // create button elements
       var optionButton = document.createElement("button");
       optionButton.id = "option-button";
-      
       // display question options in button's innerText
       optionButton.innerText = option;
       // append option buttons to optionsDiv in the quizDiv display area
       optionsDiv.appendChild(optionButton);
-
       // add event listener for option buttons
-
+      // optionButton.addEventListener('click', 'x');
     });
 
 
