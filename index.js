@@ -67,20 +67,49 @@ var questionsArr = [
     }
 ];
 
+// creating variables
+var currentQuestionIndex = 0;
+var score = 0;
+var timer;
+var totalQuestions = questionsArr.length;
+
+
 
 // ON PAGE LOAD
 window.onload = function() {
     const quizContainer = document.getElementById("quiz");
+    // make element to display previous score
+    var previousScoreDisplay = document.createElement('p');
+    // retrieve previous score from localStorage
+    var PREVIOUS_SCORE = 'previousScore';
+    var previousScore = localStorage.getItem('PREVIOUS_SCORE');
 
-    // create a "start quiz" button
+    // IF = PREV SCORE IS STORED
+    if (previousScore) {
+      // 1. display previous score
+      // set previousScoreDisplay to previous score
+      previousScoreDisplay.textContent = previousScore
+      // append prevousScoreDisplay to quiz container
+      quizContainer.textContent = previousScoreDisplay;
+
+    // 2. create a "start quiz" button w/ id attribute of "start-quiz"
     var startButton = document.createElement("button");
-    // The button MUST have an id attribute of "start-quiz"
     startButton.id = "start-quiz";
     startButton.innerText = "Start Quiz!";
-    // display a "start quiz" button
+    // 3. display button
     quizContainer.appendChild(startButton);
     
-    // ! If the user has taken the quiz before, the app should display the previous score, use localStorage.getItem
+
+    } else {
+    // ELSE = 1ST TIME PLAYING
+    // 1. create a "start quiz" button w/ id attribute of "start-quiz"
+    var startButton = document.createElement("button");
+    startButton.id = "start-quiz";
+    startButton.innerText = "Start Quiz!";
+    // 2. display button
+    quizContainer.appendChild(startButton);
+
+    }
 
 
 
@@ -91,11 +120,11 @@ window.onload = function() {
 // AFTER STARTING THE QUIZ
 function startQuiz() {
     console.log("start quiz");
+    // make constant to target the quiz container div in provided HTML
     const quizContainer = document.getElementById("quiz");
 
-    // start at question 1
-    let currentIndex = 0;
-    let score = 0;
+    // start at question 1 (index 0) with a score of 0
+
 
     function loadQuestion() {
         // if there are more questions left
