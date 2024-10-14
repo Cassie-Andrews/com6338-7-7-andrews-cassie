@@ -158,17 +158,14 @@ function displayQuestion() {
       optionButton.innerText = option;
       // append option buttons to optionsDiv in the quizDiv display area
       optionsDiv.appendChild(optionButton);
-      // add event listener for option buttons
-      // optionButton.addEventListener('click', 'x');
+      // TO DO ==> add event listener for option buttons
+      // TO DO ==> optionButton.addEventListener('click', 'x');
     });
-
-
-      
-
     // call startTimer function
+    startTimer();
   } else {
-  // ELSE 
     // call endQuiz function
+    endQuiz();
   }
 }
 
