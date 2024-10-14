@@ -56,16 +56,6 @@ var questionsArr = [
         ]
     },
     {
-        question: 'Who created JavaScript?',
-        answer: 'Brendan Eich',
-        options: [
-          'Linus Torvalds',
-          'Brendan Eich',
-          'Dan Abramov',
-          'Douglas Crockford',
-        ]
-    },
-    {
         question: '5. Who created JavaScript?',
         answer: 'Brendan Eich',
         options: [
@@ -75,50 +65,60 @@ var questionsArr = [
           'Douglas Crockford',
         ]
     }
-  ]
+];
 
 
 // ON PAGE LOAD
 window.onload = function() {
-    // if the user has never played the game before, the game should display a "start quiz" button. 
+    const quizContainer = document.getElementById("quiz");
+
+    // create a "start quiz" button
     var startButton = document.createElement("button");
-    // The button MUST have an id attribute of "start-quiz". automated tests require this id and will fail without it.
+    // The button MUST have an id attribute of "start-quiz"
     startButton.id = "start-quiz";
     startButton.innerText = "Start Quiz!";
-    document.getElementById("quiz").appendChild(startButton);
+    // display a "start quiz" button
+    quizContainer.appendChild(startButton);
     
-    // ! If the user has taken the quiz before, the app should display the previous score
+    // ! If the user has taken the quiz before, the app should display the previous score, use localStorage.getItem
 
+
+
+    // click button to start the quiz
     startButton.onclick = startQuiz;
-}
 
 
 // AFTER STARTING THE QUIZ
 function startQuiz() {
-    // your program should select the first question in questionsArr  
-    var quiz = document.getElementById("quiz");
+    console.log("start quiz");
+    const quizContainer = document.getElementById("quiz");
 
-    var score = 0; // score starts at 0
-    
-    for (var i = 0; i < questionsArr.length; i++) {
-        var currentQuestion = questionsArr[i].question;
-        var currentQuestionOptions = questionsArr[i].options;
-        var currentQuestionAnswer = questionsArr[i].answer;
-        var userChoice = '';
+    // start at question 1
+    let currentIndex = 0;
+    let score = 0;
 
-        console.log(currentQuestion);
+    function loadQuestion() {
+        // if there are more questions left
+        if (currentIndex < questionsArr.length) { 
+            // select the next question object in questionsArr
+            var questionObject = questionsArr[currentIndex];
+            // create element to display the question
+            var currentQuestion = document.createElement("p");
+            // display the question
+            currentQuesiton.innerText = questionObject.question;
+            quizContainer.appendChild(currentQuesiton);
 
-        // and display the question 
-        function showQuestion() {
-            var questionEl = document.createElement("div");
-            questionEl.innerText = currentQuestion;
-            quiz.appendChild(questionEl);
+            // display the questionObject.options as buttons
+            questionObject.options.forEach(option => {
+                var optionButton = document.createElement("button");
+                optionButton.innerText = "this is an option";
+            });
+
+            // display a timer that counts down from 30 one second at a time
+            // use setInterval and clearInterval methods to create the timer
         }
-
-        // display the possible choices
-
-        // ! The quiz should also display a timer that counts down from 30 one second at a time (figure 3.1). Please use JavaScript's setInterval and clearInterval methods to create the timer.
     }
+}
 }
 
 
