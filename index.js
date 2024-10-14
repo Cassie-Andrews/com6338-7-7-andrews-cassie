@@ -128,7 +128,6 @@ function startQuiz() {
 function displayQuestion() {
   // IF current index < total question
   if (currentQuestionIndex < totalQuestions) {
-    console.log("displayQuestion");
     // retrieve all info for the current question
     var currentQuestionData = questionsArr[currentQuestionIndex];    
     // display the question
@@ -141,12 +140,6 @@ function displayQuestion() {
     var optionsDiv = document.createElement("div");
     optionsDiv.id = "options-div";
     quizDiv.appendChild(optionsDiv);
-
-    // display the timer
-    var timerEl = document.createElement("p");
-    timerEl.id = "timer-display";
-    timerEl.textContent = 30;
-    quizDiv.appendChild(timerEl);
 
     // CREATE BUTTON FOR EACH OPTION
     // use content from question options
@@ -171,14 +164,37 @@ function displayQuestion() {
 
 // START TIMER
 function startTimer() {
-  // use setInterval to countdown from 30 sec for each question
-  // countdown one second at a time
-  // stop the countdown when it reaches 0
-  // when timer reaches 0
-    // no messaging or feedback displayed to the user
-    // cycle to next question by +1 to question index
-  // display countdown at bottom of the quizDiv
+  var timerEl = document.createElement("p"); // display the timer
+  timerEl.id = "timer-display";
+  timerEl.textContent = 30; // countdown from 30 sec for each question
+  quizDiv.appendChild(timerEl); // display countdown at bottom of the quizDiv
+  var intervalId = setInterval(function() { 
+    timerEl.textContent = Number(timerEl.textContent) - 1
+    if (timerEl.textContent === '0') { // when the timer reaches 0...
+        clearInterval(intervalId) // stop the countdown
+        currentQuestionIndex++; // cycle to next question by +1 to question index
+
+        console.log("Question index: " + currentQuestionIndex);
+        // no messaging or feedback displayed to the user
+    }
+  }, 1000) // countdown one second at a time
 }
+
+
+/*
+            // display a timer that counts down from 30 one second at a time
+            // use setInterval and clearInterval methods to create the timer
+            // create an element to display the timer
+            var timerDisplay = document.createElement("p")
+            timerDisplay.textContent = "30"; // start at 30
+            quizDiv.appendChild(timerDisplay); // append to quiz container
+            
+           
+        }
+    }
+    loadQuestion();
+}
+*/
 
 
 // CHECK FOR CORRECT ANSWER
@@ -218,63 +234,4 @@ function endQuiz() {
 // This means that if the user navigates away from the page and then later returns to the site, their previous score information should still be displayed.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-// AFTER STARTING THE QUIZ
-function startQuiz() {
-    console.log("start quiz");
-    // make constant to target the quiz container div in provided HTML
-    const  quizDiv = document.getElementById("quiz");
-
-    // start at question 1 (index 0) with a score of 0
-
-
-    function loadQuestion() {
-        // if there are more questions left
-        if (currentIndex < questionsArr.length) { 
-            // select the next question object in questionsArr
-            var questionObject = questionsArr[currentIndex];
-            // create element to display the question
-            var currentQuestion = document.createElement("p");
-            // display the question
-            currentQuestion.innerText = questionObject.question;
-            quizDiv.appendChild(currentQuestion);
-
-            // display the questionObject.options as buttons
-           
-            });
-
-            // display a timer that counts down from 30 one second at a time
-            // use setInterval and clearInterval methods to create the timer
-            // create an element to display the timer
-            var timerDisplay = document.createElement("p")
-            timerDisplay.textContent = "30"; // start at 30
-            quizDiv.appendChild(timerDisplay); // append to quiz container
-            
-            var timeRemaining = 30; // create variable for timeRemaining
-            var intervalId = setInterval(function() {  // use interval for timer
-                timerDisplay.textContent = Number(timerDisplay.textContent) - 1
-                if (timerDisplay.textContent === '0') {
-                    clearInterval(intervalId) // stop counting at 0
-                }
-            }, 1000) // count by 1 second
-        }
-    }
-
-    loadQuestion();
-
-}
-
-*/
 
