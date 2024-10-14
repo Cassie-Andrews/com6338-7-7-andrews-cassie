@@ -89,17 +89,38 @@ window.onload = function() {
     
     // ! If the user has taken the quiz before, the app should display the previous score
 
-    startButton.onclick = startQuiz 
+    startButton.onclick = startQuiz;
 }
 
 
 // AFTER STARTING THE QUIZ
+function startQuiz() {
+    // your program should select the first question in questionsArr  
+    var quiz = document.getElementById("quiz");
 
-function startQuiz () {
+    var score = 0; // score starts at 0
+    
+    for (var i = 0; i < questionsArr.length; i++) {
+        var currentQuestion = questionsArr[i].question;
+        var currentQuestionOptions = questionsArr[i].options;
+        var currentQuestionAnswer = questionsArr[i].answer;
+        var userChoice = '';
 
+        console.log(currentQuestion);
+
+        // and display the question 
+        function showQuestion() {
+            var questionEl = document.createElement("div");
+            questionEl.innerText = currentQuestion;
+            quiz.appendChild(questionEl);
+        }
+
+        // display the possible choices
+
+        // ! The quiz should also display a timer that counts down from 30 one second at a time (figure 3.1). Please use JavaScript's setInterval and clearInterval methods to create the timer.
+    }
 }
-// your program should select the first question in questionsArr and display the question as well as the possible choices (figure 3). 
-// The quiz should also display a timer that counts down from 30 one second at a time (figure 3.1). Please use JavaScript's setInterval and clearInterval methods to create the timer.
+
 
 
 
