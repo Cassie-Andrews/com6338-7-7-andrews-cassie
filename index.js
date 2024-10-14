@@ -67,14 +67,83 @@ var questionsArr = [
     }
 ];
 
-// creating variables
-var currentQuestionIndex = 0;
-var score = 0;
-var timer;
-var totalQuestions = questionsArr.length;
+// creating initial variables
+var currentQuestionIndex = 0; // start at index 0
+var score = 0; // start at score 0
+var timer; // make timer
+var totalQuestions = questionsArr.length; // total number questions to calc score
 
 
+// ON PAGE LOAD
+window.onload = function() {
+  // check for previous score
+    // check localStorage
+    // define quiz area for display
 
+    // IF previous score found
+      // display previous score in quiz div
+      // display start button in quiz div
+    // ELSE (no prev score found)
+      // display start button in quiz div
+
+    // event listener for start quiz button click
+      // clicking the start button runs the startQuiz function  
+
+}
+
+
+// START QUIZ
+function startQuiz() {
+  // start at first question (index 0)
+  // start score at 0
+  // clear quiz div display or previous score and start button
+
+  // call function displayQuestion
+}
+
+// DISPLAY QUESTION
+function displayQuestion() {
+  // IF current index < total question
+    // retrieve all info for the current question
+    // use the quizDiv as the display area for the question data
+    // display the question
+
+    // CREATE BUTTON FOR EACH OPTION
+      // use content from question options
+      // create button elements
+      // display question options in button's innerText
+      // append buttons to quizDiv display area
+
+    // START TIMER
+      // use setInterval to countdown from 30 sec for each question
+      // countdown one second at a time
+      // stop the countdown when it reaches 0
+      // display countdown at bottom of the quizDiv
+      
+  // ELSE endQuiz
+}
+
+
+// CHECK FOR CORRECT ANSWER
+function checkAnswer() {
+  // retrieve correct answer for the given question
+
+  // IF CORRECT (button user clicked === correct answer)
+    // +1 to score
+    // reset timer
+    // go to next question
+      // +1 to question index 
+      // call displayQuestion function
+  // ELSE (incorrect)
+    // reset timer
+    // go to next question
+      // +1 to question index
+      // call displayQuestion function
+}
+
+// END QUIZ
+
+/*
 // ON PAGE LOAD
 window.onload = function() {
     const quizContainer = document.getElementById("quiz");
@@ -164,6 +233,8 @@ function startQuiz() {
     loadQuestion();
 
 }
+
+*/
 
 // Selecting one of the options or running out of time should cause the app to immediately cycle to the next question and set of choices in questionsArr. 
 // There should be no messaging or feedback displayed to the user after making a selection or running out of time(figure 4).
