@@ -114,7 +114,6 @@ window.onload = function() {
 
 // START QUIZ
 function startQuiz() {
-  console.log("Start quiz!");
   // start at first question (index 0)
   currentQuestionIndex = 0;
   // start score at 0
@@ -129,18 +128,42 @@ function startQuiz() {
 function displayQuestion() {
   // IF current index < total question
   if (currentQuestionIndex < totalQuestions) {
+    console.log("displayQuestion");
     // retrieve all info for the current question
-    // use the quizDiv as the display area for the question data
+    var currentQuestionData = questionsArr[currentQuestionIndex];    
     // display the question
+    var questionEl = document.createElement("p");
+    questionEl.id = "current-question";
+    questionEl.textContent = currentQuestionData.question;
+    quizDiv.appendChild(questionEl);
+
     // display the options (in an options div?)
+    var optionsDiv = document.createElement("div");
+    optionsDiv.id = "options-div";
+
     // display the timer
+    var timerEl = document.createElement("p");
+    timerEl.id = "timer-display";
+    timerEl.textContent = 30;
 
     // CREATE BUTTON FOR EACH OPTION
-      // use content from question options
+    // use content from question options
+    currentQuestionData.options.forEach(option => {
       // create button elements
+      var optionButton = document.createElement("button");
+      optionButton.id = "option-button";
+      
       // display question options in button's innerText
-      // append buttons to quizDiv display area
+      optionButton.innerText = option;
+      // append option buttons to optionsDiv in the quizDiv display area
+      optionsDiv.appendChild(optionButton);
+
       // add event listener for option buttons
+
+    });
+
+
+      
 
     // call startTimer function
   } else {
@@ -232,10 +255,7 @@ function startQuiz() {
             quizDiv.appendChild(currentQuestion);
 
             // display the questionObject.options as buttons
-            questionObject.options.forEach(option => {
-                var optionButton = document.createElement("button");
-                optionButton.innerText = option;
-                quizDiv.appendChild(optionButton);
+           
             });
 
             // display a timer that counts down from 30 one second at a time
