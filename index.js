@@ -145,14 +145,14 @@ function displayQuestion() {
     // use content from question options
     currentQuestionData.options.forEach(option => {
       // create button elements
-      var optionButton = document.createElement("button");
+      const optionButton = document.createElement("button");
       optionButton.id = "option-button";
       // display question options in button's innerText
       optionButton.innerText = option;
       // append option buttons to optionsDiv in the quizDiv display area
       optionsDiv.appendChild(optionButton);
       // TO DO ==> add event listener for option buttons
-      // TO DO ==> optionButton.addEventListener('click', 'x');
+      optionButton.addEventListener('click', () => checkAnswer(option));
     });
     // call startTimer function
     startTimer();
@@ -168,50 +168,31 @@ function startTimer() {
   timerEl.id = "timer-display";
   timerEl.textContent = 30; // countdown from 30 sec for each question
   quizDiv.appendChild(timerEl); // display countdown at bottom of the quizDiv
-  var intervalId = setInterval(function() { 
+  var timer = setInterval(function() { 
     timerEl.textContent = Number(timerEl.textContent) - 1
     if (timerEl.textContent === '0') { // when the timer reaches 0...
-        clearInterval(intervalId) // stop the countdown
+        clearInterval(timer) // stop the countdown
         currentQuestionIndex++; // cycle to next question by +1 to question index
-
-        console.log("Question index: " + currentQuestionIndex);
+        displayQuestion();
         // no messaging or feedback displayed to the user
     }
   }, 1000) // countdown one second at a time
 }
 
-
-/*
-            // display a timer that counts down from 30 one second at a time
-            // use setInterval and clearInterval methods to create the timer
-            // create an element to display the timer
-            var timerDisplay = document.createElement("p")
-            timerDisplay.textContent = "30"; // start at 30
-            quizDiv.appendChild(timerDisplay); // append to quiz container
-            
-           
-        }
-    }
-    loadQuestion();
-}
-*/
-
-
 // CHECK FOR CORRECT ANSWER
 function checkAnswer() {
   // retrieve correct answer for the given question
-
-  // IF CORRECT (button user clicked === correct answer)
-    // +1 to score
-    // reset timer
-    // go to next question
-      // +1 to question index 
-      // call displayQuestion function
-  // ELSE (incorrect)
-    // reset timer
-    // go to next question
-      // +1 to question index
-      // call displayQuestion function
+  var correctAnswer = questionsArr[currentQuestionIndex].answer;
+  if (optionButton === correctAnswer) { // IF CORRECT (button user clicked === correct answer)
+    score++; // +1 to score
+    startTimer; // reset timer
+    currentQuestionIndex++; // +1 to question index 
+    displayQuestion(); // go to next question, call displayQuestion function
+  } else { // ELSE (incorrect)
+    startTimer; // reset timer
+    currentQuestionIndex++; // +1 to question index 
+    displayQuestion(); // go to next question, call displayQuestion function
+  }
 }
 
 // END QUIZ
