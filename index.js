@@ -86,7 +86,7 @@ window.onload = function() {
 
     // click button to start the quiz
     startButton.onclick = startQuiz;
-
+}
 
 // AFTER STARTING THE QUIZ
 function startQuiz() {
@@ -105,24 +105,36 @@ function startQuiz() {
             // create element to display the question
             var currentQuestion = document.createElement("p");
             // display the question
-            currentQuesiton.innerText = questionObject.question;
-            quizContainer.appendChild(currentQuesiton);
+            currentQuestion.innerText = questionObject.question;
+            quizContainer.appendChild(currentQuestion);
 
             // display the questionObject.options as buttons
             questionObject.options.forEach(option => {
                 var optionButton = document.createElement("button");
-                optionButton.innerText = "this is an option";
+                optionButton.innerText = option;
+                quizContainer.appendChild(optionButton);
             });
 
             // display a timer that counts down from 30 one second at a time
             // use setInterval and clearInterval methods to create the timer
+            // create an element to display the timer
+            var timerDisplay = document.createElement("p")
+            timerDisplay.textContent = "30"; // start at 30
+            quizContainer.appendChild(timerDisplay); // append to quiz container
+            
+            var timeRemaining = 30; // create variable for timeRemaining
+            var intervalId = setInterval(function() {  // use interval for timer
+                timerDisplay.textContent = Number(timerDisplay.textContent) - 1
+                if (timerDisplay.textContent === '0') {
+                    clearInterval(intervalId) // stop counting at 0
+                }
+            }, 1000) // count by 1 second
         }
     }
+
+    loadQuestion();
+
 }
-}
-
-
-
 
 // Selecting one of the options or running out of time should cause the app to immediately cycle to the next question and set of choices in questionsArr. 
 // There should be no messaging or feedback displayed to the user after making a selection or running out of time(figure 4).
