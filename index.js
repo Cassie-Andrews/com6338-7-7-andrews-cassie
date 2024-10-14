@@ -72,7 +72,7 @@ var currentQuestionIndex = 0; // start at index 0
 var score = 0; // start at score 0
 var timer; // make timer
 var totalQuestions = questionsArr.length; // total number questions to calc score
-
+var quizDiv = document.getElementById('quiz');
 
 // ON PAGE LOAD
 window.onload = function() {
@@ -80,7 +80,7 @@ window.onload = function() {
     // check localStorage
     var PREVIOUS_SCORE = localStorage.getItem('previous-score');
     // define quiz area for display
-    const quizDiv = document.getElementById('quiz');
+
 
     // IF previous score found
     if (PREVIOUS_SCORE) {
@@ -116,15 +116,19 @@ window.onload = function() {
 function startQuiz() {
   console.log("Start quiz!");
   // start at first question (index 0)
+  currentQuestionIndex = 0;
   // start score at 0
+  score = 0;
   // clear quiz div display or previous score and start button
-
+  quizDiv.innerText = '';
   // call function displayQuestion
+  displayQuestion();
 }
 
 // DISPLAY QUESTION
 function displayQuestion() {
   // IF current index < total question
+  if (currentQuestionIndex < totalQuestions) {
     // retrieve all info for the current question
     // use the quizDiv as the display area for the question data
     // display the question
@@ -139,9 +143,10 @@ function displayQuestion() {
       // add event listener for option buttons
 
     // call startTimer function
-
+  } else {
   // ELSE 
     // call endQuiz function
+  }
 }
 
 // START TIMER
