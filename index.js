@@ -178,7 +178,7 @@ function checkAnswer(selectedOption) {
 function endQuiz() {
   // calculate final score
   // divide correct answers by total questions & round to the nearest whole number
-  var finalScore = ((score / totalQuestions) * 100);
+  var finalScore = Math.round((score / totalQuestions) * 100);
   // save final score under the key previous-score to localStorage
   localStorage.setItem('previous-score', finalScore);
 
