@@ -77,7 +77,7 @@ var quizDiv = document.getElementById('quiz');
 // ON PAGE LOAD
 window.onload = function() {
   // check for previous score in localStorage
-    var previousScore = localStorage.getItem('previous-score');
+    const previousScore = localStorage.getItem('previous-score');
     // IF previous score found
     if (previousScore) {
       // create previous score display
@@ -195,6 +195,3 @@ function endQuiz() {
 // PERSIST SCORE DATA BETWEEN GAMES
 // the application should use the JavaScript localStorage API to store the user's most recent score under the key "previous-score" after each game and retrieve the score on page load. 
 // This means that if the user navigates away from the page and then later returns to the site, their previous score information should still be displayed.
-
-
-
