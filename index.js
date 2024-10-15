@@ -76,64 +76,46 @@ var quizDiv = document.getElementById('quiz');
 
 // ON PAGE LOAD
 window.onload = function() {
-  // check for previous score
-    // check localStorage
-    var PREVIOUS_SCORE = localStorage.getItem('previous-score');
-    // define quiz area for display
-
-
+  // check for previous score in localStorage
+    var previousScore = localStorage.getItem('previous-score');
     // IF previous score found
-    if (PREVIOUS_SCORE) {
+    if (previousScore) {
       // create previous score display
       var previousScoreDisplay = document.createElement('p');
       previousScoreDisplay.textContent = previousScore;
       // display previous score in quiz div
-      quizDiv.textContent = previousScoreDisplay;
-
-      // create start button
-      var startButton = document.createElement("button");
-      startButton.id = "start-quiz";
-      startButton.innerText = "Start Quiz!";
-      // display start button in quiz div
-      quizDiv.appendChild(startButton);
-      
-    } else {
-      // create start button
-      var startButton = document.createElement("button");
-      startButton.id = "start-quiz";
-      startButton.innerText = "Start Quiz!";
-      // display start button in quiz div
-      quizDiv.appendChild(startButton);
-
-      // event listener for start quiz button click
-      document.getElementById('start-quiz').addEventListener('click', startQuiz);
-        // clicking the start button runs the startQuiz function  
+      quizDiv.appendChild(previousScoreDisplay);
     }
+
+    // create start button
+    var startButton = document.createElement("button");
+    startButton.id = "start-quiz";
+    startButton.innerText = "Start Quiz!";
+    // display start button in quiz div
+    quizDiv.appendChild(startButton);
+
+    // event listener for start quiz button click
+    startButton.addEventListener('click', startQuiz);
+    // clicking the start button runs the startQuiz function  
 }
 
-
 // START QUIZ
-function startQuiz() {
-  // start at first question (index 0)
-  currentQuestionIndex = 0;
-  // start score at 0
-  score = 0;
-  // clear quiz div display or previous score and start button
-  quizDiv.innerText = '';
-  // call function displayQuestion
-  displayQuestion();
+function startQuiz() { 
+  currentQuestionIndex = 0; // start at first question (index 0)
+  score = 0; // start score at 0
+  quizDiv.innerText = ''; // clear quiz div display
+  displayQuestion(); // call function displayQuestion
 }
 
 // DISPLAY QUESTION
 function displayQuestion() {
-  // IF current index < total question
-  if (currentQuestionIndex < totalQuestions) {
+  if (currentQuestionIndex < totalQuestions) { // IF current index < total question
+    quizDiv.innerText = ''; // clear quiz div display
     // retrieve all info for the current question
-    var currentQuestionData = questionsArr[currentQuestionIndex];    
-    // display the question
-    var questionEl = document.createElement("p");
+    var currentQuestionData = questionsArr[currentQuestionIndex]; 
+    var questionEl = document.createElement("p"); // create question element
     questionEl.id = "current-question";
-    questionEl.textContent = currentQuestionData.question;
+    questionEl.textContent = currentQuestionData.question; // display the question
     quizDiv.appendChild(questionEl);
 
     // display the options (in an options div?)
