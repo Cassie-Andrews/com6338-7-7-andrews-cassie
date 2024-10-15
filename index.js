@@ -64,7 +64,7 @@ var questionsArr = [
           'Mary Shelley',
           'Jamie Lee Curtis',
         ]
-    }
+    },
 ];
 
 // creating initial variables
