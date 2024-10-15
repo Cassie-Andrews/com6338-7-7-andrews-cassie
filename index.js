@@ -114,27 +114,23 @@ function displayQuestion() {
     // retrieve all info for the current question
     var currentQuestionData = questionsArr[currentQuestionIndex]; 
     var questionEl = document.createElement("p"); // create question element
-    questionEl.id = "current-question";
     questionEl.textContent = currentQuestionData.question; // display the question
     quizDiv.appendChild(questionEl);
 
     // display the options (in an options div?)
     var optionsDiv = document.createElement("div");
-    optionsDiv.id = "options-div";
     quizDiv.appendChild(optionsDiv);
 
     // CREATE BUTTON FOR EACH OPTION
     // use content from question options
     currentQuestionData.options.forEach(option => {
       // create button elements
-      const optionButton = document.createElement("button");
-      optionButton.id = "option-button";
-      // display question options in button's innerText
-      optionButton.innerText = option;
-      // append option buttons to optionsDiv in the quizDiv display area
-      optionsDiv.appendChild(optionButton);
-      // TO DO ==> add event listener for option buttons
+      const optionButton = document.createElement("button"); // display question options in button's innerText
+      optionButton.innerText = option; 
+      // add event listener for option buttons
       optionButton.addEventListener('click', () => checkAnswer(option));
+      optionsDiv.appendChild(optionButton); 
+      // append option buttons to optionsDiv in the quizDiv display area
     });
     // call startTimer function
     startTimer();
@@ -146,14 +142,15 @@ function displayQuestion() {
 
 // START TIMER
 function startTimer() {
+  var timeRemaining = 30; // set timer duration
   var timerEl = document.createElement("p"); // display the timer
-  timerEl.id = "timer-display";
-  timerEl.textContent = 30; // countdown from 30 sec for each question
+  timerEl.textContent = timeRemaining; 
   quizDiv.appendChild(timerEl); // display countdown at bottom of the quizDiv
-  var timer = setInterval(function() { 
+
+  timer = setInterval(function() { 
     timerEl.textContent = Number(timerEl.textContent) - 1
     if (timerEl.textContent === '0') { // when the timer reaches 0...
-        clearInterval(timer) // stop the countdown
+        clearInterval(timer); // stop the countdown
         currentQuestionIndex++; // cycle to next question by +1 to question index
         displayQuestion();
         // no messaging or feedback displayed to the user
@@ -162,19 +159,18 @@ function startTimer() {
 }
 
 // CHECK FOR CORRECT ANSWER
-function checkAnswer() {
+function checkAnswer(selectedOption) {
   // retrieve correct answer for the given question
   var correctAnswer = questionsArr[currentQuestionIndex].answer;
-  if (optionButton === correctAnswer) { // IF CORRECT (button user clicked === correct answer)
+  
+  if (selectedOption === correctAnswer) { // IF CORRECT (button user clicked === correct answer)
     score++; // +1 to score
-    startTimer; // reset timer
-    currentQuestionIndex++; // +1 to question index 
-    displayQuestion(); // go to next question, call displayQuestion function
-  } else { // ELSE (incorrect)
-    startTimer; // reset timer
-    currentQuestionIndex++; // +1 to question index 
-    displayQuestion(); // go to next question, call displayQuestion function
-  }
+  } 
+  clearInterval(timer); // reset timer
+  currentQuestionIndex++; // +1 to question index 
+  displayQuestion(); // go to next question
+
+  console.log(score);
 }
 
 // END QUIZ
