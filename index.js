@@ -16,53 +16,53 @@
 
 var questionsArr = [
     {
-      question: '1. Who created JavaScript?',
-      answer: 'Brendan Eich',
+      question: '1. What is the name of the villain in the movie "The Nightmare Before Christmas"?',
+      answer: 'Oogie Boogie',
       options: [
-        'Linus Torvalds',
-        'Brendan Eich',
-        'Dan Abramov',
-        'Douglas Crockford',
+        'The Grinch',
+        'Oogie Boogie',
+        'Michael Myers',
+        'Voldemort',
       ]
     },
     {
-      question: '2. Who created JavaScript?',
-      answer: 'Brendan Eich',
+      question: '2. How many bones are in the average human skeleton?',
+      answer: '206',
       options: [
-        'Linus Torvalds',
-        'Brendan Eich',
-        'Dan Abramov',
-        'Douglas Crockford',
+        '206',
+        '198',
+        '218',
+        '7',
       ]
     },
     {
-        question: '3. Who created JavaScript?',
-        answer: 'Brendan Eich',
+        question: '3. How did early New Englanders protect their homes from evil spirits?',
+        answer: 'By hiding shoes in their walls',
         options: [
-          'Linus Torvalds',
-          'Brendan Eich',
-          'Dan Abramov',
-          'Douglas Crockford',
+          'By wearing pointy hats',
+          'By hanging seasonal wreaths',
+          'By locking their doors',
+          'By hiding shoes in their walls',
         ]
     },
     {
-        question: '4. Who created JavaScript?',
-        answer: 'Brendan Eich',
+        question: "4. Which movie tops Rotten Tomatoes' list of the Scariest Horror Movies Ever?",
+        answer: 'The Exorcist',
         options: [
-          'Linus Torvalds',
-          'Brendan Eich',
-          'Dan Abramov',
-          'Douglas Crockford',
+          'The Poltergeist',
+          'Halloween',
+          'The Exorcist',
+          'The Conjuring',
         ]
     },
     {
-        question: '5. Who created JavaScript?',
-        answer: 'Brendan Eich',
+        question: '5. Who wrote "The Legend of Sleepy Hollow"?',
+        answer: 'Washington Irving',
         options: [
-          'Linus Torvalds',
-          'Brendan Eich',
-          'Dan Abramov',
-          'Douglas Crockford',
+          'Stephen King',
+          'Washington Irving',
+          'Mary Shelley',
+          'Jamie Lee Curtis',
         ]
     }
 ];
@@ -82,7 +82,7 @@ window.onload = function() {
     if (previousScore) {
       // create previous score display
       var previousScoreDisplay = document.createElement('p');
-      previousScoreDisplay.textContent = previousScore;
+      previousScoreDisplay.textContent = "Previous Score: " + previousScore + "%";
       // display previous score in quiz div
       quizDiv.appendChild(previousScoreDisplay);
     }
@@ -171,15 +171,19 @@ function checkAnswer(selectedOption) {
   displayQuestion(); // go to next question
 
   console.log(score);
+  console.log(typeof score);
 }
 
 // END QUIZ
 function endQuiz() {
-  // calculate final score 
-    // divide correct answers by total questions
-    // round to the nearest whole numebr
+  // calculate final score
+  // divide correct answers by total questions & round to the nearest whole number
+  var finalScore = ((score / totalQuestions) * 100);
   // save final score under the key previous-score to localStorage
+  localStorage.setItem('previous-score', finalScore);
+
   // restart the game (by reloading the page ?)
+  location.reload();
 }
 
 
