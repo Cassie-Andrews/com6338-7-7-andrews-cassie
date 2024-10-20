@@ -149,14 +149,19 @@ function startTimer() {
   quizDiv.appendChild(timerEl); // display countdown at bottom of the quizDiv
 
   timer = setInterval(function() { 
-    timerEl.textContent = Number(timerEl.textContent) - 1
-    if (timerEl.textContent === '0') { // when the timer reaches 0...
-        clearInterval(timer); // stop the countdown
-        currentQuestionIndex++; // cycle to next question by +1 to question index
-        displayQuestion();
-        // no messaging or feedback displayed to the user
+    timeRemaining--;
+    timerEl.textContent = timeRemaining;
+
+    if (timeRemaining <= 0) { // when the timer reaches 0...
+      clearInterval(timer); // stop the countdown
+      currentQuestionIndex++; // cycle to next question by +1 to question index
+      if (currentQuestionIndex < totalQuestions) { // if there are questions left
+        displayQuestion(); // display next question
+      } else { // if there are no questions left
+        endQuiz(); // end quiz
+      }
     }
-  }, 1000) // countdown one second at a time
+  }, 1000); // countdown one second at a time
 }
 
 // CHECK FOR CORRECT ANSWER
@@ -177,16 +182,24 @@ function checkAnswer(selectedOption) {
 
 // END QUIZ
 function endQuiz() {
+  clearInterval(timer); // reset timer
+  quizDiv.innerText = ''; // clear quiz div display
+  
   // calculate final score
   // divide correct answers by total questions & round to the nearest whole number
   var finalScore = Math.round((score / totalQuestions) * 100);
   // save final score under the key previous-score to localStorage
   localStorage.setItem('previous-score', finalScore);
 
+  //update display
+  var finalScoreDisplay = document.createElement('p');
+  finalScoreDisplay.textContent = "Final Score: " + finalScore + "%";
+  // display previous score in quiz div
+  quizDiv.appendChild(finalScoreDisplay);
   // restart the game 
-  clearInterval(timer); // reset timer
-  quizDiv.innerText = ''; // clear quiz div display
-  location.reload();
+  
+  
+  location.reload(), 3000; // delay reload by 3 secs
 }
 
 
