@@ -64,7 +64,7 @@ var questionsArr = [
           'Mary Shelley',
           'Jamie Lee Curtis',
         ]
-    },
+    }
 ];
 
 // creating initial variables
@@ -75,35 +75,36 @@ var totalQuestions = questionsArr.length; // total number questions to calc scor
 var quizDiv = document.getElementById('quiz');
 
 // ON PAGE LOAD
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function() {
   // check for previous score in localStorage
-    const previousScore = localStorage.getItem('previous-score');
-    // IF previous score found
-    if (previousScore) {
-      // create previous score display
-      var previousScoreDisplay = document.createElement('p');
-      previousScoreDisplay.textContent = "Previous Score: " + previousScore + "%";
-      // display previous score in quiz div
-      quizDiv.appendChild(previousScoreDisplay);
-    }
+  const previousScore = localStorage.getItem('previous-score');
+  // IF previous score found
+  if (previousScore) {
+    // create previous score display
+    var previousScoreDisplay = document.createElement('p');
+    previousScoreDisplay.textContent = "Previous Score: " + previousScore + "%";
+    // display previous score in quiz div
+    quizDiv.appendChild(previousScoreDisplay);
+  }
 
-    // create start button
-    var startButton = document.createElement("button");
-    startButton.id = "start-quiz";
-    startButton.innerText = "Start Quiz!";
-    // display start button in quiz div
-    quizDiv.appendChild(startButton);
+  // create start button
+  var startButton = document.createElement("button");
+  startButton.id = "start-quiz";
+  startButton.innerText = "Start Quiz!";
+  // display start button in quiz div
+  quizDiv.appendChild(startButton);
 
-    // event listener for start quiz button click
-    startButton.addEventListener('click', startQuiz);
-    // clicking the start button runs the startQuiz function  
-}
+  // event listener for start quiz button click
+  startButton.addEventListener('click', startQuiz);
+  // clicking the start button runs the startQuiz function  
+})
+
 
 // START QUIZ
 function startQuiz() { 
+  quizDiv.innerText = ''; // clear quiz div display
   currentQuestionIndex = 0; // start at first question (index 0)
   score = 0; // start score at 0
-  quizDiv.innerText = ''; // clear quiz div display
   displayQuestion(); // call function displayQuestion
 }
 
@@ -182,7 +183,9 @@ function endQuiz() {
   // save final score under the key previous-score to localStorage
   localStorage.setItem('previous-score', finalScore);
 
-  // restart the game (by reloading the page ?)
+  // restart the game 
+  clearInterval(timer); // reset timer
+  quizDiv.innerText = ''; // clear quiz div display
   location.reload();
 }
 
