@@ -68,14 +68,14 @@ var questionsArr = [
 ];
 
 // creating initial variables
-var currentQuestionIndex = 0; // start at index 0
+// var currentQuestionIndex = 0; // start at index 0
 var score = 0; // start at score 0
 var timer; // make timer
-var totalQuestions = questionsArr.length; // total number questions to calc score
+var totalQuestions = (questionsArr.length); // total number questions to calc score
 var quizDiv = document.getElementById('quiz');
 
 // ON PAGE LOAD
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(displayButton) {
   // check for previous score in localStorage
   const previousScore = localStorage.getItem('previous-score');
   // IF previous score found
@@ -154,11 +154,11 @@ function startTimer() {
 
     if (timeRemaining <= 0) { // when the timer reaches 0...
       clearInterval(timer); // stop the countdown
-      currentQuestionIndex++; // cycle to next question by +1 to question index
-      if (currentQuestionIndex < totalQuestions) { // if there are questions left
-        displayQuestion(); // display next question
-      } else { // if there are no questions left
+      if (currentQuestionIndex >= totalQuestions -1) { // if there are questions left
         endQuiz(); // end quiz
+      } else { // if there are no questions left
+        currentQuestionIndex++; // go to next question
+        displayQuestion(); // display next question
       }
     }
   }, 1000); // countdown one second at a time
@@ -172,12 +172,17 @@ function checkAnswer(selectedOption) {
   if (selectedOption === correctAnswer) { // IF CORRECT (button user clicked === correct answer)
     score++; // +1 to score
   } 
+  
   clearInterval(timer); // reset timer
   currentQuestionIndex++; // +1 to question index 
-  displayQuestion(); // go to next question
 
-  console.log(score);
-  console.log(typeof score);
+  if (currentQuestionIndex < totalQuestions) { // if there are questions left
+    console.log("Current question index:", currentQuestionIndex);
+    console.log("Total questions:", totalQuestions);
+    displayQuestion(); // display next question
+  } else { // if there are no questions left
+    endQuiz(); // end quiz
+  }
 }
 
 // END QUIZ
@@ -190,7 +195,7 @@ function endQuiz() {
   var finalScore = Math.round((score / totalQuestions) * 100);
   // save final score under the key previous-score to localStorage
   localStorage.setItem('previous-score', finalScore);
-
+  console.log('Final score: ' + finalScore);
   //update display
   var finalScoreDisplay = document.createElement('p');
   finalScoreDisplay.textContent = "Final Score: " + finalScore + "%";
@@ -198,8 +203,16 @@ function endQuiz() {
   quizDiv.appendChild(finalScoreDisplay);
   // restart the game 
   
+  var startButton = document.createElement("button");
+  startButton.id = "start-quiz";
+  startButton.innerText = "Start Quiz!";
+  // display start button in quiz div
+  quizDiv.appendChild(startButton);
+
+  // event listener for start quiz button click
+  startButton.addEventListener('click', startQuiz);
   
-  location.reload(), 3000; // delay reload by 3 secs
+  // location.reload(), 3000; // delay reload by 3 secs
 }
 
 
